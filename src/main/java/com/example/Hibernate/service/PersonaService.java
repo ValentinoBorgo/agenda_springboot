@@ -1,11 +1,14 @@
 package com.example.Hibernate.service;
 
+import com.example.Hibernate.Repository.IMascotaRepository;
 import com.example.Hibernate.Repository.IPersonaRepository;
+import com.example.Hibernate.model.Mascota;
 import com.example.Hibernate.model.Persona;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonaService implements IPersonaService{
@@ -13,6 +16,8 @@ public class PersonaService implements IPersonaService{
     //Inyeccion de dependencias
     @Autowired
     private IPersonaRepository IPersonaRepository;
+    @Autowired
+    private IMascotaRepository mascotaRepository;
 
     @Override
     public List<Persona> getPersonas() {
@@ -42,6 +47,11 @@ public class PersonaService implements IPersonaService{
         persona.setApellido(apellidoNuevo);
         persona.setNombre(nombreNuevo);
         persona.setEdad(edadNueva);
+        this.savePersona(persona);
+    }
+
+    @Override
+    public void editPersonaMascota(Persona persona) {
         this.savePersona(persona);
     }
 }

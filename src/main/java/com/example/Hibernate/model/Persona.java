@@ -1,9 +1,6 @@
 package com.example.Hibernate.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Persona {
@@ -17,7 +14,20 @@ public class Persona {
     private String apellido;
     private int edad;
 
+    @OneToOne
+    //asocio la columna de id_mascota en persona con el id de la mascota en su respectiva tabla
+    @JoinColumn(name = "mascota_id_mascota", referencedColumnName = "id_mascota")
+    private Mascota mascota;
+
     public Persona() {
+    }
+
+    public Persona(Long id, String nombre, String apellido, int edad, Mascota mascota) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.mascota = mascota;
     }
 
     public long getId() {
@@ -46,6 +56,14 @@ public class Persona {
 
     public int getEdad() {
         return edad;
+    }
+
+    public Mascota getMascota() {
+        return mascota;
+    }
+
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
     }
 
     public void setEdad(int edad) {

@@ -3,7 +3,9 @@ package com.example.Hibernate.Controller;
 import com.example.Hibernate.model.Persona;
 import com.example.Hibernate.service.IPersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class PersonaController {
         return "Persona Agregada correctamente";
     }
 
+
     @DeleteMapping("/personas/delete/{id}")
     public String deletePerson(@PathVariable Long id){
         personaService.deletePersona(id);
@@ -43,5 +46,12 @@ public class PersonaController {
         Persona personaModi = personaService.findPersona(idOri);
         return personaModi;
     }
+
+    @PutMapping("/personas/edit_mascota")
+    public Persona editMascota(@RequestBody Persona persona
+    ){
+             personaService.editPersonaMascota(persona);
+            return personaService.findPersona(persona.getId());
+        }
 
 }
