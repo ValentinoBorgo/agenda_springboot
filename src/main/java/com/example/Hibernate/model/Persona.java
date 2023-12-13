@@ -2,6 +2,8 @@ package com.example.Hibernate.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Persona {
 
@@ -14,21 +16,39 @@ public class Persona {
     private String apellido;
     private int edad;
 
-    @OneToOne
+    //@OneToOne
     //asocio la columna de id_mascota en persona con el id de la mascota en su respectiva tabla
-    @JoinColumn(name = "mascota_id_mascota", referencedColumnName = "id_mascota")
-    private Mascota mascota;
+    //@JoinColumn(name = "mascota_id_mascota", referencedColumnName = "id_mascota")
+
+    @OneToMany
+    private List<Mascota> mascotaList;
+
+    public List<Mascota> getMascotaList() {
+        return mascotaList;
+    }
+
+    public void setMascotaList(List<Mascota> mascotaList) {
+        this.mascotaList = mascotaList;
+    }
 
     public Persona() {
     }
 
-    public Persona(Long id, String nombre, String apellido, int edad, Mascota mascota) {
+    public Persona(Long id, String nombre, String apellido, int edad, List<Mascota> mascotaList) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
-        this.mascota = mascota;
+        this.mascotaList = mascotaList;
     }
+
+    //public Persona(Long id, String nombre, String apellido, int edad, Mascota mascota) {
+      //  this.id = id;
+        //this.nombre = nombre;
+        //this.apellido = apellido;
+        //this.edad = edad;
+        //this.mascota = mascota;
+    //}
 
     public long getId() {
         return id;
@@ -58,6 +78,7 @@ public class Persona {
         return edad;
     }
 
+    /*
     public Mascota getMascota() {
         return mascota;
     }
@@ -65,6 +86,7 @@ public class Persona {
     public void setMascota(Mascota mascota) {
         this.mascota = mascota;
     }
+     */
 
     public void setEdad(int edad) {
         this.edad = edad;
